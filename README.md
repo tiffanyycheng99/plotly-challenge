@@ -2,7 +2,7 @@
 
 ![Bacteria by filterforge.com](Images/bacteria.jpg)
 
-#### A whole other look at the world living in your belly button
+#### A whole other look at the world living in your belly button, literally!
 
 In this assignment, we built an interactive dashboard to explore the [Belly Button Biodiversity dataset](http://robdunnlab.com/projects/belly-button-biodiversity/), which catalogs the microbes that colonize human navels.
 
