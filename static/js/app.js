@@ -1,6 +1,17 @@
 // Variable to hold the subjectID input; Value is 0 for Creating the initial first value of Samples.json
-var subjectID=0;
+var subjectID="940";
 
+// Initialize Page with first SubjectID
+function pageInit(subject){
+    topOTUBar(subject)
+    topOTUBubble(subject)
+    demographTable(subject)
+    washingGauge(subject)
+}
+
+pageInit(subjectID)
+
+// Use D3 to update all visualizations on dashboard upon Test SubjectID option changed
 d3.selectAll("#selDataset").on("change",optionChanged);
 
 
@@ -25,8 +36,6 @@ function optionChanged(){
 
 // Call dropdownData function when a change takes place
 // dropdownData  function is used to populate the dropdown to select from the samples data. names
-
-
 function dropdownData(){
     // Select the Dropdown element
     var dropdown = d3.select("#selDataset");
@@ -187,12 +196,12 @@ function washingGauge(subject){
             {
                 domain: {x:[0,1],y:[0,1]},
                 value: selectData.wfreq,
-                title: {title: "Belly Button Wash Frequency (per week)"},
+                title: {text: "Belly Button Wash Frequency (per week)", font: {size:16}},
                 type: "indicator",
                 mode: "gauge+number",
                 gauge: {
                     axis: {range:[null,maxWfreq]},
-                    bar:{color: "#90EE90"},
+                    bar:{color: "#e9ffdb"},
                     bgcolor: "white",
                     steps: [
                         {range:[0,2],color:"#a9ba9d"},
@@ -210,6 +219,12 @@ function washingGauge(subject){
 
             }
         ]
+
+        var layout = { 
+            width: 450, 
+            height: 400, 
+            margin: { t: 0, b: 0, l: 0} };
+        Plotly.newPlot('gauge',trace3,layout);
     })
 }
 
