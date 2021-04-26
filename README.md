@@ -31,4 +31,8 @@ Script to visualizations can be references in the app.js file under the static/j
 
 Hulcr, J. et al.(2012) _A Jungle in There: Bacteria in Belly Buttons are Highly Diverse, but Predictable_. Retrieved from: [http://robdunnlab.com/projects/belly-button-biodiversity/results-and-data/](http://robdunnlab.com/projects/belly-button-biodiversity/results-and-data/)
 
-- - -
+- - 
+
+Interact with the Dashboard! Maybe you'll find a test subject with similar demographics to find what microbial species is living in your belly button right now!
+
+
