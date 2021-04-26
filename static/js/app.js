@@ -16,16 +16,11 @@ function optionChanged(){
     topOTUBar(subjectID)
     topOTUBubble(subjectID)
     demographTable(subjectID)
+    washingGauge(subjectID)
 
     
 
 };
-
-// filterSubject function is used to filter the metadata to match the select SubjectID/name
-// function filterSubject(subject){
-//     return subject.samples.id === subjectID;
-// }
-
 
 
 // Call dropdownData function when a change takes place
@@ -154,26 +149,68 @@ function demographTable(subject){
             }
         }
 
-        var id = selectData.id;
-        var ethnicity = selectData.ethnicity;
-        var gender = selectData.gender;
-        var age = selectData.age;
-        var location = selectData.location;
-        var bbtype = selectData.bbtype;
-        var wfreq = selectData.wfreq;
-
+        // Use D3 to select Demographic table area in html
         var demoTable = d3.select("#sample-metadata");
         // Clear out table before populating
         demoTable.selectAll('tr').remove();
 
         // Write out html for table 
         for (const [key,value] of Object.entries(selectData)){
-            demoTable.append("tr").append('td').text(`${key}:${value}`);
+            demoTable.append("tr").append('td').text(`${key}: ${value}`);
         }
 
 
 
     });
+}
+
+function washingGauge(subject){
+    d3.json("data/samples.json").then((data) => {
+        var selectData;
+
+        // Filter data to subject
+        for (var i = 0; i < data.metadata.length; i++){
+            if(data.metadata[i].id == subject){
+                selectData = data.metadata[i]
+                console.log(selectData)
+            }
+        }
+
+
+        // Get Maximum wfreq for the subject from metadata
+        maxWfreq = d3.max(data.metadata, d => d.wfreq)
+        console.log(maxWfreq)
+        console.log(maxWfreq/5)
+        // Max is 9 so use 10 as maximum range for Wfreq in Gauge
+
+        var trace3 = [
+            {
+                domain: {x:[0,1],y:[0,1]},
+                value: selectData.wfreq,
+                title: {title: "Belly Button Wash Frequency (per week)"},
+                type: "indicator",
+                mode: "gauge+number",
+                gauge: {
+                    axis: {range:[null,maxWfreq]},
+                    bar:{color: "#90EE90"},
+                    bgcolor: "white",
+                    steps: [
+                        {range:[0,2],color:"#a9ba9d"},
+                        {range:[2,4],color:"#8fbc8f"},
+                        {range:[4,6],color:"#a8e4a0"},
+                        {range:[6,8],color:"#ace1af"},
+                        {range:[8,10],color:"#d0f0c0"}],
+                    threshold:{
+                        line: { color: "#006b3c", width: 2 },
+                        thickness: 0.50,
+                        value: 490
+                      }
+                    
+                }
+
+            }
+        ]
+    })
 }
 
 //
